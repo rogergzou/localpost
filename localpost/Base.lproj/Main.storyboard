@@ -20,6 +20,7 @@
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
                                     <barButtonItem id="Thb-WL-l5I"/>
+                                    <barButtonItem systemItem="compose" id="AsG-nD-ZsT"/>
                                 </items>
                             </toolbar>
                             <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pwG-AH-TEY">
