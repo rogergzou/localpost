@@ -13,6 +13,7 @@
 
 @interface Post : NSManagedObject
 
+@property (nonatomic, retain) NSDate * startTime;
 @property (nonatomic, retain) NSDate * expireTime;
 @property (nonatomic, retain) NSDecimalNumber * longitude;
 @property (nonatomic, retain) NSDecimalNumber * latitude;

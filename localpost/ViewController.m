@@ -38,15 +38,13 @@
 
 
 
+@synthesize mapview;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    [self doNothing];
-    self.Label.text = @"pie";
     
-    
-    //test
+    //test, my code for core data
     //NSManagedObjectContext *context = self.managedObjectContext;
     NSFetchRequest *fetchreq = [[NSFetchRequest alloc]init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"City" inManagedObjectContext:self.managedObjectContext];
@@ -72,7 +70,9 @@
     if (![self.managedObjectContext save:&error]) {
         NSLog(@"fail save, %@", [error localizedDescription]);
     }
-    
+
+        //charles's code
+    mapview.showsUserLocation = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -84,11 +84,6 @@
     //self.fetchedResultsController = nil;
     [super viewDidDisappear:animated];
 }
-
-- (void)doNothing {
-    //do nothing
-}
-
 - (NSManagedObjectContext *)managedObjectContext
 {
     if (_managedObjectContext)

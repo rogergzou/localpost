@@ -22,8 +22,8 @@
     
     
     
-    NSManagedObjectContext *context = [self managedObjectContext];
-    NSError *error;
+    //NSManagedObjectContext *context = [self managedObjectContext];
+    //NSError *error;
     /*City *cityinfo = [NSEntityDescription insertNewObjectForEntityForName:@"City" inManagedObjectContext:context];
     cityinfo.name = @"Boston";
     Post *post1 = [NSEntityDescription insertNewObjectForEntityForName:@"Post" inManagedObjectContext:context];
