@@ -18,10 +18,42 @@
 //@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController; //fuck it
 @property (weak, nonatomic) IBOutlet UITextField *messageTextField;
 @property (weak, nonatomic) IBOutlet UIDatePicker *expireDatePicker;
+@property (nonatomic, strong) City *currCity;
 
 @end
 
 @implementation ViewController
+
+- (IBAction)addEvent:(id)sender {
+    //add to core data thing
+    Post *currpost = [NSEntityDescription insertNewObjectForEntityForName:@"Post" inManagedObjectContext:self.managedObjectContext];
+    currpost.message = self.messageTextField.text;
+    NSLog(@"date exp %@", self.expireDatePicker.date);
+    currpost.expireTime = self.expireDatePicker.date;
+    currpost.latitude = [NSDecimalNumber decimalNumberWithDecimal: [@(mapview.userLocation.location.coordinate.latitude) decimalValue]];
+    currpost.longitude = [NSDecimalNumber decimalNumberWithDecimal:[@(mapview.userLocation.location.coordinate.longitude)decimalValue]];
+    currpost.city = self.currCity;
+    [self.currCity addPostsObject:currpost];
+    NSError *error;
+    if (![self.managedObjectContext save:&error])
+        NSLog(@"fail sav, %@", [error localizedDescription]);
+    //test if fetched?
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"City" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    for (NSManagedObject *citya in fetchedObjects) {
+        NSLog(@"Name: %@", [citya valueForKey:@"name"]);
+        NSSet *posts = [citya valueForKey:@"posts"];
+        //        NSLog(@"Zip: %@", [details valueForKey:@"zip"]);
+        for (NSManagedObject *posta in posts) {
+            NSLog(@"Message: %@", [posta valueForKey:@"message"]);
+        }
+    }
+
+}
 
 /* //fuck it
 - (NSFetchedResultsController *)fetchedResultsController {
@@ -56,7 +88,15 @@
     if (error)
         NSLog(@"%@", [error localizedDescription]);
     NSLog(@"ctys: %@", cities);
+    
+    ///HARDCODED
+    
     City *boston = cities[0]; //trust for now
+    self.currCity = boston;
+    
+    ///HARDCODED
+    
+    
     //[self.managedObjectContext deleteObject:cities[1]];
     //[self.managedObjectContext deleteObject:cities[2]];
     //int i = 0;
