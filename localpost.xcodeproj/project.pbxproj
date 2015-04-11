@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AEF8611A1AD9B24E0077ECBD /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEF861191AD9B24E0077ECBD /* MapKit.framework */; };
+		AEF8611C1AD9C00B0077ECBD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEF8611B1AD9C00B0077ECBD /* CoreLocation.framework */; };
 		DB2A3C551AD9A663002505AC /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = DB2A3C541AD9A663002505AC /* Post.m */; };
 		DB2A3C571AD9A6C1002505AC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB2A3C561AD9A6C1002505AC /* CoreData.framework */; };
 		DB2A3C591AD9A700002505AC /* CoreData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DB2A3C561AD9A6C1002505AC /* CoreData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -48,6 +49,7 @@
 
 /* Begin PBXFileReference section */
 		AEF861191AD9B24E0077ECBD /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		AEF8611B1AD9C00B0077ECBD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		DB2A3C531AD9A663002505AC /* Post.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
 		DB2A3C541AD9A663002505AC /* Post.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Post.m; sourceTree = "<group>"; };
 		DB2A3C561AD9A6C1002505AC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -74,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEF8611C1AD9C00B0077ECBD /* CoreLocation.framework in Frameworks */,
 				AEF8611A1AD9B24E0077ECBD /* MapKit.framework in Frameworks */,
 				DB2A3C571AD9A6C1002505AC /* CoreData.framework in Frameworks */,
 			);
@@ -92,6 +95,7 @@
 		DB4F5D811AD99933006FB982 = {
 			isa = PBXGroup;
 			children = (
+				AEF8611B1AD9C00B0077ECBD /* CoreLocation.framework */,
 				AEF861191AD9B24E0077ECBD /* MapKit.framework */,
 				DB2A3C561AD9A6C1002505AC /* CoreData.framework */,
 				DB4F5D8C1AD99933006FB982 /* localpost */,

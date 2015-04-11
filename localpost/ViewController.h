@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface ViewController : UIViewController {
     
@@ -15,9 +16,20 @@
     
 }
 
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations;
+
 @property (nonatomic, retain) IBOutlet MKMapView *mapview;
 
+@property (strong, nonatomic) CLLocationManager *locationManager;
 
+@property (strong, nonatomic) CLLocation *location;
+
+@property (weak, nonatomic) IBOutlet UILabel *labelLatitude;
+
+@property (weak, nonatomic) IBOutlet UILabel *labelLongitude;
+
+@property (weak, nonatomic) IBOutlet UILabel *labelAltitude;
 
 
 @end
