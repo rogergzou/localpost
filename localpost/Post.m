@@ -12,6 +12,7 @@
 
 @implementation Post
 
+@dynamic startTime;
 @dynamic expireTime;
 @dynamic longitude;
 @dynamic latitude;
