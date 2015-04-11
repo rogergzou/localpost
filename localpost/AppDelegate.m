@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "City.h"
+#import "Post.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +19,45 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    
+    
+    NSManagedObjectContext *context = [self managedObjectContext];
+    NSError *error;
+    /*City *cityinfo = [NSEntityDescription insertNewObjectForEntityForName:@"City" inManagedObjectContext:context];
+    cityinfo.name = @"Boston";
+    Post *post1 = [NSEntityDescription insertNewObjectForEntityForName:@"Post" inManagedObjectContext:context];
+    Post *post2 = [NSEntityDescription insertNewObjectForEntityForName:@"Post" inManagedObjectContext:context];
+    post1.expireTime = [NSDate dateWithTimeIntervalSinceNow:5];
+    post2.expireTime = [NSDate dateWithTimeIntervalSinceNow:10];
+    post1.latitude = [NSDecimalNumber decimalNumberWithDecimal: [@42.3676145 decimalValue]];
+    post2.latitude = [NSDecimalNumber decimalNumberWithDecimal: [@42.4676145 decimalValue]];
+    post1.longitude = [NSDecimalNumber decimalNumberWithDecimal: [@-72.505491 decimalValue]];
+    post2.longitude = [NSDecimalNumber decimalNumberWithDecimal: [@-72.605491 decimalValue]];
+    post1.message = @"Amherst";
+    post2.message = @"ayy lmao above amherst";
+    cityinfo.posts = [NSSet setWithObjects:post1, post2, nil];
+    
+    if (![context save:&error]) {
+        NSLog(@"fail save, %@", [error localizedDescription]);
+    }
+    
+    //test if fetched?
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"City" inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+    for (NSManagedObject *citya in fetchedObjects) {
+        NSLog(@"Name: %@", [citya valueForKey:@"name"]);
+        NSSet *posts = [citya valueForKey:@"posts"];
+//        NSLog(@"Zip: %@", [details valueForKey:@"zip"]);
+        for (NSManagedObject *posta in posts) {
+            NSLog(@"Message: %@", [posta valueForKey:@"message"]);
+        }
+    }
+     */
     return YES;
 }
 
