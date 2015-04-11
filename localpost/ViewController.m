@@ -20,10 +20,25 @@
 @property (weak, nonatomic) IBOutlet UITextField *messageTextField;
 @property (weak, nonatomic) IBOutlet UIDatePicker *expireDatePicker;
 @property (nonatomic, strong) City *currCity;
+@property (nonatomic, strong) UIToolbar *blurToolbar;
 
 @end
 
 @implementation ViewController
+
+- (IBAction)unhideCover:(id)sender {
+    //self.coverView.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.35]; //.6
+    UIView *myView = self.coverView;
+    myView.backgroundColor = [UIColor clearColor];
+    UIToolbar* bgToolbar = [[UIToolbar alloc] initWithFrame:myView.frame];
+    bgToolbar.barStyle = UIBarStyleDefault;
+    [myView.superview insertSubview:bgToolbar belowSubview:myView];
+    self.blurToolbar = bgToolbar;
+
+    self.coverView.hidden = false;
+    //self.blurView.hidden = false;
+    self.expireDatePicker.date = [NSDate date];
+}
 
 - (IBAction)addEvent:(id)sender {
     //add to core data thing
@@ -53,7 +68,9 @@
             NSLog(@"Message: %@", [posta valueForKey:@"message"]);
         }
     }
-
+    self.coverView.hidden = true;
+    [self.blurToolbar removeFromSuperview];
+    self.messageTextField.text = @"";
 }
 
 /* //fuck it
@@ -78,6 +95,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
     
     //test, my code for core data
     //NSManagedObjectContext *context = self.managedObjectContext;
@@ -114,12 +132,9 @@
         NSLog(@"fail save, %@", [error localizedDescription]);
     }
 
-    //self.coverView.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.35]; //.6
-    UIView *myView = self.coverView;
-    myView.backgroundColor = [UIColor clearColor];
-    UIToolbar* bgToolbar = [[UIToolbar alloc] initWithFrame:myView.frame];
-    bgToolbar.barStyle = UIBarStyleDefault;
-    [myView.superview insertSubview:bgToolbar belowSubview:myView];
+    //default start as hidden
+    self.coverView.hidden = true;
+
     
     
         //charles' mapview code
