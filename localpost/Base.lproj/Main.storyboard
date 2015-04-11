@@ -20,15 +20,6 @@
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
                                     <barButtonItem id="Thb-WL-l5I"/>
-                                    <barButtonItem style="plain" id="zMo-Mi-Knh">
-                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="kiH-mQ-hWY">
-                                            <rect key="frame" x="38" y="7" width="30" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Add">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                        </button>
-                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pwG-AH-TEY">
@@ -39,10 +30,13 @@
                                 <rect key="frame" x="0.0" y="69" width="600" height="487"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ffN-K4-QFf">
-                                <rect key="frame" x="567" y="36" width="22" height="22"/>
+                                <rect key="frame" x="16" y="56" width="22" height="22"/>
+                                <connections>
+                                    <action selector="unhideCover:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CAN-J7-2uu"/>
+                                </connections>
                             </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cSk-Z9-SVc">
-                                <rect key="frame" x="36" y="86" width="518" height="443"/>
+                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cSk-Z9-SVc">
+                                <rect key="frame" x="50" y="99" width="518" height="443"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Expire in:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Io-Zh-Jdi">
                                         <rect key="frame" x="23" y="219" width="71" height="21"/>
