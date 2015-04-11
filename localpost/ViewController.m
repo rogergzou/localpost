@@ -14,11 +14,19 @@
 
 @implementation ViewController
 
+@synthesize mapview;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [self doNothing];
-    self.Label.text = @"pie";
+    [self showLocation];
+    MKCoordinateRegion region = { {0.0, 0.0}, {0.0, 0.0} };
+    //region.center.latitude =
+    region.span.latitudeDelta = 0.01f;
+    region.span.longitudeDelta = 0.01f;
+    [mapview setRegion:region animated:YES];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -28,6 +36,11 @@
 
 - (void)doNothing {
     //do nothing
+}
+
+- (void) showLocation {
+    mapview.showsUserLocation = YES;
+    
 }
 
 @end
