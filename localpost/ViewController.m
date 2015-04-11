@@ -12,7 +12,8 @@
 #import "Post.h"
 #import "AppDelegate.h"
 
-@interface ViewController ()
+@interface ViewController () <CLLocationManagerDelegate>
+
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 //@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController; //fuck it
@@ -123,6 +124,19 @@
     
         //charles' mapview code
     mapview.showsUserLocation = YES;
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
+    // TODO: Add NSLocationWhenInUseUsageDescription in MyApp-Info.plist and give it a string
+    
+    // Check for iOS 8
+    if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
+    mapview.showsUserLocation = YES;
+    
+    [[self locationManager] startUpdatingLocation];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -134,6 +148,7 @@
     //self.fetchedResultsController = nil;
     [super viewDidDisappear:animated];
 }
+
 - (NSManagedObjectContext *)managedObjectContext
 {
     if (_managedObjectContext)
@@ -143,11 +158,11 @@
     _managedObjectContext = [appDelegate managedObjectContext];
     return _managedObjectContext;
 }
-/*
-- (NSManagedObjectContext *)managedObjectContext {
-    if (!_managedObjectContext)
-        _managedObjectContext = [[[UIApplication sharedApplication]delegate]managedObjectContext]; //[[NSManagedObjectContext alloc]init];
-    return _managedObjectContext;
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    CLLocation *location = locations.lastObject;
+    [[self labelLatitude] setText:[NSString stringWithFormat:@"%.6f", location.coordinate.latitude]];
+    [[self labelLongitude] setText:[NSString stringWithFormat:@"%.6f", location.coordinate.longitude]];
+    [[self labelAltitude] setText:[NSString stringWithFormat:@"%.2f feet", location.altitude]];
 }
-*/
+
 @end
