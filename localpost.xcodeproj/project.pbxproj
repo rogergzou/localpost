@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB2A3C551AD9A663002505AC /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = DB2A3C541AD9A663002505AC /* Post.m */; };
+		DB2A3C571AD9A6C1002505AC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB2A3C561AD9A6C1002505AC /* CoreData.framework */; };
+		DB2A3C591AD9A700002505AC /* CoreData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DB2A3C561AD9A6C1002505AC /* CoreData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DB2A3C601AD9A74C002505AC /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = DB2A3C5F1AD9A74C002505AC /* City.m */; };
 		DB4F5D901AD99933006FB982 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DB4F5D8F1AD99933006FB982 /* main.m */; };
 		DB4F5D931AD99933006FB982 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DB4F5D921AD99933006FB982 /* AppDelegate.m */; };
 		DB4F5D961AD99933006FB982 /* localpost.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DB4F5D941AD99933006FB982 /* localpost.xcdatamodeld */; };
@@ -27,7 +31,26 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		DB2A3C5A1AD9A700002505AC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DB2A3C591AD9A700002505AC /* CoreData.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		DB2A3C531AD9A663002505AC /* Post.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
+		DB2A3C541AD9A663002505AC /* Post.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Post.m; sourceTree = "<group>"; };
+		DB2A3C561AD9A6C1002505AC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		DB2A3C5E1AD9A74C002505AC /* City.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = City.h; sourceTree = "<group>"; };
+		DB2A3C5F1AD9A74C002505AC /* City.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = City.m; sourceTree = "<group>"; };
 		DB4F5D8A1AD99933006FB982 /* localpost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = localpost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB4F5D8E1AD99933006FB982 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB4F5D8F1AD99933006FB982 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -49,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB2A3C571AD9A6C1002505AC /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +89,7 @@
 		DB4F5D811AD99933006FB982 = {
 			isa = PBXGroup;
 			children = (
+				DB2A3C561AD9A6C1002505AC /* CoreData.framework */,
 				DB4F5D8C1AD99933006FB982 /* localpost */,
 				DB4F5DA91AD99933006FB982 /* localpostTests */,
 				DB4F5D8B1AD99933006FB982 /* Products */,
@@ -91,6 +116,10 @@
 				DB4F5D9D1AD99933006FB982 /* Images.xcassets */,
 				DB4F5D9F1AD99933006FB982 /* LaunchScreen.xib */,
 				DB4F5D941AD99933006FB982 /* localpost.xcdatamodeld */,
+				DB2A3C5E1AD9A74C002505AC /* City.h */,
+				DB2A3C5F1AD9A74C002505AC /* City.m */,
+				DB2A3C531AD9A663002505AC /* Post.h */,
+				DB2A3C541AD9A663002505AC /* Post.m */,
 				DB4F5D8D1AD99933006FB982 /* Supporting Files */,
 			);
 			path = localpost;
@@ -132,6 +161,7 @@
 				DB4F5D861AD99933006FB982 /* Sources */,
 				DB4F5D871AD99933006FB982 /* Frameworks */,
 				DB4F5D881AD99933006FB982 /* Resources */,
+				DB2A3C5A1AD9A700002505AC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -223,6 +253,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB4F5D961AD99933006FB982 /* localpost.xcdatamodeld in Sources */,
+				DB2A3C551AD9A663002505AC /* Post.m in Sources */,
+				DB2A3C601AD9A74C002505AC /* City.m in Sources */,
 				DB4F5D931AD99933006FB982 /* AppDelegate.m in Sources */,
 				DB4F5D991AD99933006FB982 /* ViewController.m in Sources */,
 				DB4F5D901AD99933006FB982 /* main.m in Sources */,
@@ -422,6 +454,7 @@
 				DB4F5DB21AD99933006FB982 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DB4F5DB31AD99933006FB982 /* Build configuration list for PBXNativeTarget "localpostTests" */ = {
 			isa = XCConfigurationList;
@@ -430,6 +463,7 @@
 				DB4F5DB51AD99933006FB982 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
