@@ -14,6 +14,7 @@
     MKMapView *mapview;
     
 }
+@property (weak, nonatomic) IBOutlet UIView *coverView;
 
 @property (nonatomic, retain) IBOutlet MKMapView *mapview;
 

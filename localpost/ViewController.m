@@ -16,6 +16,8 @@
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 //@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController; //fuck it
+@property (weak, nonatomic) IBOutlet UITextField *messageTextField;
+@property (weak, nonatomic) IBOutlet UIDatePicker *expireDatePicker;
 
 @end
 
@@ -71,7 +73,15 @@
         NSLog(@"fail save, %@", [error localizedDescription]);
     }
 
-        //charles's code
+    //self.coverView.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.35]; //.6
+    UIView *myView = self.coverView;
+    myView.backgroundColor = [UIColor clearColor];
+    UIToolbar* bgToolbar = [[UIToolbar alloc] initWithFrame:myView.frame];
+    bgToolbar.barStyle = UIBarStyleDefault;
+    [myView.superview insertSubview:bgToolbar belowSubview:myView];
+    
+    
+        //charles' mapview code
     mapview.showsUserLocation = YES;
 }
 
