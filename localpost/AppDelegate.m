@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "City.h"
 #import "Post.h"
+#import <Parse/Parse.h>
 
 @interface AppDelegate ()
 
@@ -20,12 +21,33 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    // Parse data store in cloud
+    // [Optional] Power your app with Local Datastore. For more info, go to
+    // https://parse.com/docs/ios_guide#localdatastore/iOS
+    [Parse enableLocalDatastore];
+    
+    //Init Prase
+    [Parse setApplicationId:@"4DMwX7owf113YHmEo94gENErIK7LdyjDDjkEWfe4" clientKey:@"nhe2YNLDCcXfAYxKnPfWJ9yRqsfIE6SatyZ79UF6"];
+     // [Optional] Track statistics around application opens.
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    // Parse analytics
+    //NSDictionary *dimensions = @{
+                                 // What type of news is this?
+      //                           @"category": @"anime",
+                                 // Is it a weekday or the weekend?
+        //                         @"dayType": @"weekend",
+          //                       };
+    // Send the dimensions to Parse along with the 'read' event
+    
+    //[PFAnalytics trackEvent:@"read" dimensions:dimensions];
     
     
+    /*
     NSManagedObjectContext *context = [self managedObjectContext];
     NSError *error;
     City *cityinfo = [NSEntityDescription insertNewObjectForEntityForName:@"City" inManagedObjectContext:context];
-    cityinfo.name = @"Boston";
+    cityinfo.name = @"LondonW1J"; //just once
     Post *post1 = [NSEntityDescription insertNewObjectForEntityForName:@"Post" inManagedObjectContext:context];
     Post *post2 = [NSEntityDescription insertNewObjectForEntityForName:@"Post" inManagedObjectContext:context];
     post1.expireTime = [NSDate dateWithTimeIntervalSinceNow:5];
@@ -34,14 +56,14 @@
     post2.latitude = [NSDecimalNumber decimalNumberWithDecimal: [@42.4676145 decimalValue]];
     post1.longitude = [NSDecimalNumber decimalNumberWithDecimal: [@-72.505491 decimalValue]];
     post2.longitude = [NSDecimalNumber decimalNumberWithDecimal: [@-72.605491 decimalValue]];
-    post1.message = @"Amherst";
-    post2.message = @"ayy lmao above amherst";
+    post1.message = @"LonAmherst";
+    post2.message = @"Lonayy lmao above amherst";
     cityinfo.posts = [NSSet setWithObjects:post1, post2, nil];
     
     if (![context save:&error]) {
         NSLog(@"fail save, %@", [error localizedDescription]);
     }
-    /*
+    *//*
     //test if fetched?
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];

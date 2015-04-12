@@ -6,11 +6,16 @@
 //  Copyright (c) 2015 Roger Zou and Charles Zhang. All rights reserved.
 //
 
+//current issue: Core Data syncing over web (ideally via Parse, though that 1000 object limit is annoying...). Want to have easiest, most lightweight framework. Have considered NSIncrementalStore, Dropbox Datastore, among others. Ultimately Parse's object API is easiest and seems like it would be globally accessible across all copies of the app. Going to completely synchronize them such that practically one-to-one.
+//http://stackoverflow.com/questions/5035132/how-to-sync-iphone-core-data-with-web-server-and-then-push-to-other-devices?rq=1
+//http://www.raywenderlich.com/17927/how-to-synchronize-core-data-with-a-web-service-part-2
+
 #import <CoreData/CoreData.h>
 #import "ViewController.h"
 #import "City.h"
 #import "Post.h"
 #import "AppDelegate.h"
+@import AddressBookUI;
 
 @interface ViewController () <CLLocationManagerDelegate>
 
@@ -28,6 +33,19 @@
 
 - (IBAction)unhideCover:(id)sender {
     //self.coverView.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.35]; //.6
+/*
+    UIView *myView = self.coverView;
+    myView.backgroundColor = [UIColor clearColor];
+    UIToolbar* bgToolbar = [[UIToolbar alloc] initWithFrame:myView.frame];
+    bgToolbar.barStyle = UIBarStyleDefault;
+    [myView.superview insertSubview:bgToolbar belowSubview:myView];
+    self.blurToolbar = bgToolbar;
+
+    self.coverView.hidden = false;
+    //self.blurView.hidden = false;
+    self.expireDatePicker.date = [NSDate date];
+    
+  */
     if (self.coverView.hidden == true) {
         //UIView *myView = self.coverView;
         //myView.backgroundColor = [UIColor clearColor];
@@ -46,7 +64,6 @@
         self.coverView.hidden = true;
         
     }
-    
 }
 
 - (IBAction)addEvent:(id)sender {
@@ -108,42 +125,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    //test Parse code
+    //PFObject *testobj = [PFObject objectWithClassName:@"TestObject"];
+    //testobj[@"foo"] = @"bar";
+    //[testobj saveInBackground];
+    
     
     //test, my code for core data
     //NSManagedObjectContext *context = self.managedObjectContext;
-    NSFetchRequest *fetchreq = [[NSFetchRequest alloc]init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"City" inManagedObjectContext:self.managedObjectContext];
-    [fetchreq setEntity:entity]; //prob
-    NSError *error;
-    NSArray *cities = [self.managedObjectContext executeFetchRequest:fetchreq error:&error];
-    if (error)
-        NSLog(@"%@", [error localizedDescription]);
-    NSLog(@"ctys: %@", cities);
-    
-    
-    ///HARDCODED
-    
-    City *boston = cities[0]; //trust for now
-    self.currCity = boston;
-    
-    ///HARDCODED
-    
-    
-    //[self.managedObjectContext deleteObject:cities[1]];
-    //[self.managedObjectContext deleteObject:cities[2]];
-    //int i = 0;
-    NSLog(@"psts: %@", boston.posts);
-    for (Post *poster in boston.posts) {
-        //NSLog(@"%@", poster);
-        poster.message = [poster.message stringByAppendingString:@"6"];
-        NSLog(@"%@, mess: %@", poster, poster.message);
-        //if (i > 1) {
-            //[self.managedObjectContext deleteObject:poster];
-        //}
-    }
-    if (![self.managedObjectContext save:&error]) {
-        NSLog(@"fail save, %@", [error localizedDescription]);
-    }
 
     //default start as hidden
     self.coverView.hidden = true;
@@ -203,6 +192,78 @@
     [[self labelLatitude] setText:[NSString stringWithFormat:@"%.6f", location.coordinate.latitude]];
     [[self labelLongitude] setText:[NSString stringWithFormat:@"%.6f", location.coordinate.longitude]];
     [[self labelAltitude] setText:[NSString stringWithFormat:@"%.2f feet", location.altitude]];
+    
+    
+    //update current city
+    if (!self.currCity) {
+        CLGeocoder *geocoder = [[CLGeocoder alloc]init];
+        [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+            if (error)
+                NSLog(@"reverse geolocate error, %@", [error localizedDescription]);
+            else {
+                CLPlacemark *placemark = [placemarks lastObject];
+                //use locality concat w/ zipcode
+                //get city and display posts here
+                NSString *cityID;
+                if (placemark.locality)
+                    if (placemark.postalCode)
+                        cityID = [placemark.locality stringByAppendingString:placemark.postalCode];
+                    else
+                        cityID = placemark.locality;
+                else if (placemark.postalCode)
+                    cityID = placemark.postalCode;
+                else
+                    return; //can't update city, can't post anything. sorry.
+                NSLog(@"cID %@", cityID);
+                NSFetchRequest *fetchreq = [[NSFetchRequest alloc]init];
+                NSEntityDescription *entity = [NSEntityDescription entityForName:@"City" inManagedObjectContext:self.managedObjectContext];
+                [fetchreq setEntity:entity]; //prob
+                
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name==%@",
+                                          cityID];
+                [fetchreq setPredicate:predicate];
+                
+                NSError *error;
+                NSArray *cities = [self.managedObjectContext executeFetchRequest:fetchreq error:&error];
+                if (error)
+                    NSLog(@"%@", [error localizedDescription]);
+                if ([cities count] > 3) {
+                    NSLog(@"warningsssss this really shouldn't happen!");
+                }
+                //query should be unique, so just get this. if not unique...uh oh.
+                self.currCity = [cities lastObject];
+                NSLog(@"currcity, %@", self.currCity);
+                
+                //[self.managedObjectContext deleteObject:cities[1]];
+                //[self.managedObjectContext deleteObject:cities[2]];
+                NSLog(@"psts: %@", self.currCity.posts);
+                
+                for (Post *poster in self.currCity.posts) {
+                    //add points to the map
+                    MKPointAnnotation *annot = [[MKPointAnnotation alloc]init];
+                    [annot setCoordinate:CLLocationCoordinate2DMake([poster.latitude doubleValue], [poster.longitude doubleValue])];
+                    [annot setTitle:poster.message];
+                    [mapview addAnnotation:annot];
+                    
+                    //NSLog(@"%@", poster);
+                    //poster.message = [poster.message stringByAppendingString:@"6"];
+                    //NSLog(@"%@, mess: %@", poster, poster.message);
+                    //if (i > 1) {
+                    //[self.managedObjectContext deleteObject:poster];
+                    //}
+                }
+                if (![self.managedObjectContext save:&error]) {
+                    NSLog(@"fail save, %@", [error localizedDescription]);
+                }
+
+                
+                
+                //NSLog(@"%@", [NSString stringWithFormat:@"%@", ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO)]);
+            }
+        }];
+    }
+    
+    
 }
 
 @end

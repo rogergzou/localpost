@@ -1,0 +1,24 @@
+Toolbar:
+Apply interactions for display of toolbar and post
+Implement toolbar
+
+Dots:
+Add dots
+    means have dots for each data entry
+color dots
+    means give each entry diff color based on parsed...something
+
+Search function for dots
+    cycle through all in city, filter by apply sort descriptor
+
+
+Core data:
+    Add city checking
+Syncing with external server (REST). Time interval, every 5 minutes or so?
+    Check for expiration dates, remove
+    Understand Parse, get bset REST lol?
+
+Sample data for presentation
+Make things look nice
+
+
