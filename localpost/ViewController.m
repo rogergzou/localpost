@@ -33,6 +33,7 @@
 
 - (IBAction)unhideCover:(id)sender {
     //self.coverView.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.35]; //.6
+/*
     UIView *myView = self.coverView;
     myView.backgroundColor = [UIColor clearColor];
     UIToolbar* bgToolbar = [[UIToolbar alloc] initWithFrame:myView.frame];
@@ -44,7 +45,25 @@
     //self.blurView.hidden = false;
     self.expireDatePicker.date = [NSDate date];
     
-    
+  */
+    if (self.coverView.hidden == true) {
+        //UIView *myView = self.coverView;
+        //myView.backgroundColor = [UIColor clearColor];
+        //UIToolbar* bgToolbar = [[UIToolbar alloc] initWithFrame:myView.frame];
+        //bgToolbar.barStyle = UIBarStyleDefault;
+        //[myView.superview insertSubview:bgToolbar belowSubview:myView];
+        //self.blurToolbar = bgToolbar;
+
+        
+        self.coverView.hidden = false;
+        
+        self.expireDatePicker.date = [NSDate date];
+        
+    }
+    else {
+        self.coverView.hidden = true;
+        
+    }
 }
 
 - (IBAction)addEvent:(id)sender {
@@ -95,6 +114,11 @@
 }
  */
 
+- (IBAction)onSlide:(id)sender {
+    self.sliderLabel.text = [NSString stringWithFormat:@"Display message for %0.1f hours", self.slider.value];
+}
+
+
 @synthesize mapview;
 
 - (void)viewDidLoad {
@@ -117,6 +141,7 @@
     if (error)
         NSLog(@"%@", [error localizedDescription]);
     NSLog(@"ctys: %@", cities);
+    
     
     ///HARDCODED
     
@@ -144,7 +169,10 @@
 
     //default start as hidden
     self.coverView.hidden = true;
-
+    
+    // default slider
+    self.slider.minimumValue = 1;
+    self.slider.maximumValue = 24;
     
     
         //charles' mapview code
