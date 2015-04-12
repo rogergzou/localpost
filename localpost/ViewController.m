@@ -156,12 +156,18 @@ int startCount = 1;
 }
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     CLLocation *location = locations.lastObject;
+
     
     if (startCount != 0) {
         self.location = location;
         MKCoordinateRegion region=MKCoordinateRegionMakeWithDistance(location.coordinate, 200, 200);
         [self.mapview setRegion:region animated: YES];
     /*
+
+    MKCoordinateRegion region=MKCoordinateRegionMakeWithDistance(location.coordinate, 200, 200);
+    [self.mapview setRegion:region animated: NO];
+    
+
     [[self labelLatitude] setText:[NSString stringWithFormat:@"%.6f", location.coordinate.latitude]];
     [[self labelLongitude] setText:[NSString stringWithFormat:@"%.6f", location.coordinate.longitude]];
     [[self labelAltitude] setText:[NSString stringWithFormat:@"%.2f feet", location.altitude]];
