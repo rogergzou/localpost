@@ -21,6 +21,20 @@
                                 <rect key="frame" x="16" y="20" width="506" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mY7-an-jxo">
+                                <rect key="frame" x="522" y="20" width="62" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="62" id="fGG-Uk-Ttw"/>
+                                    <constraint firstAttribute="height" constant="44" id="rl9-Ew-Toe"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem systemItem="compose" id="FVE-lr-4hk">
+                                        <connections>
+                                            <action selector="unhideCover:" destination="mdo-wd-8Q6" id="JjV-11-4It"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="dbr-2l-88P">
                                 <rect key="frame" x="16" y="74" width="568" height="452"/>
                             </mapView>
@@ -214,20 +228,6 @@
                                 </view>
                                 <blurEffect style="light"/>
                             </visualEffectView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mY7-an-jxo">
-                                <rect key="frame" x="522" y="20" width="62" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="62" id="fGG-Uk-Ttw"/>
-                                    <constraint firstAttribute="height" constant="44" id="rl9-Ew-Toe"/>
-                                </constraints>
-                                <items>
-                                    <barButtonItem systemItem="compose" id="FVE-lr-4hk">
-                                        <connections>
-                                            <action selector="unhideCover:" destination="mdo-wd-8Q6" id="JjV-11-4It"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -258,9 +258,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <toolbarItems>
-                        <barButtonItem title="Item" id="LrG-gl-gF1"/>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="coverView" destination="BDk-lH-7jG" id="TBg-pa-rca"/>

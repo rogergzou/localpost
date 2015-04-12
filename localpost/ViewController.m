@@ -101,7 +101,7 @@
     mapview.showsUserLocation = YES;
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     // TODO: Add NSLocationWhenInUseUsageDescription in MyApp-Info.plist and give it a string
     
     // Check for iOS 8
@@ -111,7 +111,8 @@
     mapview.showsUserLocation = YES;
     
     [[self locationManager] startUpdatingLocation];
-
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -135,10 +136,13 @@
 }
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     CLLocation *location = locations.lastObject;
+    MKCoordinateRegion region=MKCoordinateRegionMakeWithDistance(location.coordinate, 200, 200);
+    [self.mapview setRegion:region animated: YES];
+    /*
     [[self labelLatitude] setText:[NSString stringWithFormat:@"%.6f", location.coordinate.latitude]];
     [[self labelLongitude] setText:[NSString stringWithFormat:@"%.6f", location.coordinate.longitude]];
     [[self labelAltitude] setText:[NSString stringWithFormat:@"%.2f feet", location.altitude]];
-    
+    */
     
     //update current city and get local posts
     if (!self.currCity) {

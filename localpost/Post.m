@@ -18,5 +18,6 @@
 @dynamic latitude;
 @dynamic message;
 @dynamic city;
+@dynamic color;
 
 @end
