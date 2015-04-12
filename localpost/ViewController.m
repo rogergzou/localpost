@@ -44,29 +44,43 @@
 - (IBAction)addEvent:(id)sender {
     //add to core data thing
     Post *currpost = [NSEntityDescription insertNewObjectForEntityForName:@"Post" inManagedObjectContext:self.managedObjectContext];
-    currpost.message = self.messageTextField.text;
+    if (self.messageTextField.text.length <= 40) {
+        currpost.message = self.messageTextField.text;
+        // ASSUMES IT'S 24 HOUR DEPENDENT ON THE SLIDER/DISPLAY. 1.0 to 24 hours
+        currpost.expireTime = [NSDate dateWithTimeIntervalSinceNow:self.slider.value * 360]; //60 * 60 = 360. slider is 1-24
     
-    // ASSUMES IT'S 24 HOUR DEPENDENT ON THE SLIDER/DISPLAY. 1.0 corresponds to 24 hours
-    currpost.expireTime = [NSDate dateWithTimeIntervalSinceNow:self.slider.value * 360]; //60 * 60 = 360. slider is 1-24
     
-    
-    currpost.latitude = [NSDecimalNumber decimalNumberWithDecimal: [@(mapview.userLocation.location.coordinate.latitude) decimalValue]];
-    currpost.longitude = [NSDecimalNumber decimalNumberWithDecimal:[@(mapview.userLocation.location.coordinate.longitude)decimalValue]];
-    currpost.city = self.currCity;
-    [self.currCity addPostsObject:currpost];
-    NSError *error;
-    if (![self.managedObjectContext save:&error])
+        currpost.latitude = [NSDecimalNumber decimalNumberWithDecimal: [@(mapview.userLocation.location.coordinate.latitude) decimalValue]];
+        currpost.longitude = [NSDecimalNumber decimalNumberWithDecimal:[@(mapview.userLocation.location.coordinate.longitude)decimalValue]];
+        currpost.city = self.currCity;
+        [self.currCity addPostsObject:currpost];
+        NSError *error;
+        if (![self.managedObjectContext save:&error])
         NSLog(@"fail sav, %@", [error localizedDescription]);
-    //put down a pin
-    MKPointAnnotation *annot = [[MKPointAnnotation alloc]init];
-    [annot setCoordinate:CLLocationCoordinate2DMake(mapview.userLocation.location.coordinate.latitude, mapview.userLocation.location.coordinate.longitude)];
-    [annot setTitle:self.messageTextField.text];
-    [mapview addAnnotation:annot];
+        //put down a pin
+        MKPointAnnotation *annot = [[MKPointAnnotation alloc]init];
+        [annot setCoordinate:CLLocationCoordinate2DMake(mapview.userLocation.location.coordinate.latitude, mapview.userLocation.location.coordinate.longitude)];
+        [annot setTitle:self.messageTextField.text];
+        [mapview addAnnotation:annot];
 
-    //hide
-    self.coverView.hidden = true;
-    [self.blurToolbar removeFromSuperview];
-    self.messageTextField.text = @"";
+        //hide
+        self.coverView.hidden = true;
+        [self.blurToolbar removeFromSuperview];
+        self.messageTextField.text = @"";
+    }
+    else {
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Failed to Post"
+                                                                       message:@"Message needs to be 40 characters or less."
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {}];
+        
+        [alert addAction:defaultAction];
+        [self presentViewController:alert animated:YES completion:nil];
+        self.messageTextField.text = @"";
+        
+    }
 }
 
 - (IBAction)onSlide:(id)sender {
