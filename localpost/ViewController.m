@@ -167,6 +167,14 @@
     mapview.showsUserLocation = YES;
     
     [[self locationManager] startUpdatingLocation];
+    
+    CLLocation * myLocation = self.location;
+    
+    //self.mapview.region = { {myLocation.coordinate.latitude, myLocation.coordinate.longitude}
+    
+    CLLocationCoordinate2D startCoord = CLLocationCoordinate2DMake(myLocation.coordinate.latitude, myLocation.coordinate.longitude);
+    MKCoordinateRegion adjustedRegion = [self.mapview regionThatFits:MKCoordinateRegionMakeWithDistance(startCoord, 200, 200)];
+    [self.mapview setRegion:adjustedRegion animated:YES];
 
 }
 
@@ -191,6 +199,7 @@
 }
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     CLLocation *location = locations.lastObject;
+    
     [[self labelLatitude] setText:[NSString stringWithFormat:@"%.6f", location.coordinate.latitude]];
     [[self labelLongitude] setText:[NSString stringWithFormat:@"%.6f", location.coordinate.longitude]];
     [[self labelAltitude] setText:[NSString stringWithFormat:@"%.2f feet", location.altitude]];

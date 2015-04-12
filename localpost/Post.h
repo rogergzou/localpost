@@ -3,7 +3,7 @@
 //  localpost
 //
 //  Created by Roger on 4/11/15.
-//  Copyright (c) 2015 Roger Zou. All rights reserved.
+//  Copyright (c) 2015 Roger Zou and Charles Zhang. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -19,5 +19,6 @@
 @property (nonatomic, retain) NSDecimalNumber * latitude;
 @property (nonatomic, retain) NSString * message;
 @property (nonatomic, retain) City *city;
+@property (nonatomic, retain) NSString * color;
 
 @end
