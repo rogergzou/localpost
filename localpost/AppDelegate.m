@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "City.h"
 #import "Post.h"
+#import <Parse/Parse.h>
 
 @interface AppDelegate ()
 
@@ -19,6 +20,27 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    // Parse data store in cloud
+    // [Optional] Power your app with Local Datastore. For more info, go to
+    // https://parse.com/docs/ios_guide#localdatastore/iOS
+    [Parse enableLocalDatastore];
+    
+    //Init Prase
+    [Parse setApplicationId:@"4DMwX7owf113YHmEo94gENErIK7LdyjDDjkEWfe4" clientKey:@"nhe2YNLDCcXfAYxKnPfWJ9yRqsfIE6SatyZ79UF6"];
+     // [Optional] Track statistics around application opens.
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    // Parse analytics
+    //NSDictionary *dimensions = @{
+                                 // What type of news is this?
+      //                           @"category": @"anime",
+                                 // Is it a weekday or the weekend?
+        //                         @"dayType": @"weekend",
+          //                       };
+    // Send the dimensions to Parse along with the 'read' event
+    
+    //[PFAnalytics trackEvent:@"read" dimensions:dimensions];
     
     
     

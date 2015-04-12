@@ -6,11 +6,16 @@
 //  Copyright (c) 2015 Roger Zou and Charles Zhang. All rights reserved.
 //
 
+//current issue: Core Data syncing over web (ideally via Parse, though that 1000 object limit is annoying...). Want to have easiest, most lightweight framework. Have considered NSIncrementalStore, Dropbox Datastore, among others. Ultimately Parse's object API is easiest and seems like it would be globally accessible across all copies of the app. Going to completely synchronize them such that practically one-to-one.
+//http://stackoverflow.com/questions/5035132/how-to-sync-iphone-core-data-with-web-server-and-then-push-to-other-devices?rq=1
+//http://www.raywenderlich.com/17927/how-to-synchronize-core-data-with-a-web-service-part-2
+
 #import <CoreData/CoreData.h>
 #import "ViewController.h"
 #import "City.h"
 #import "Post.h"
 #import "AppDelegate.h"
+@import AddressBookUI;
 
 @interface ViewController () <CLLocationManagerDelegate>
 
@@ -38,6 +43,8 @@
     self.coverView.hidden = false;
     //self.blurView.hidden = false;
     self.expireDatePicker.date = [NSDate date];
+    
+    
 }
 
 - (IBAction)addEvent:(id)sender {
@@ -88,13 +95,16 @@
 }
  */
 
-
-
 @synthesize mapview;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    //test Parse code
+    //PFObject *testobj = [PFObject objectWithClassName:@"TestObject"];
+    //testobj[@"foo"] = @"bar";
+    //[testobj saveInBackground];
     
     
     //test, my code for core data
@@ -178,6 +188,27 @@
     [[self labelLatitude] setText:[NSString stringWithFormat:@"%.6f", location.coordinate.latitude]];
     [[self labelLongitude] setText:[NSString stringWithFormat:@"%.6f", location.coordinate.longitude]];
     [[self labelAltitude] setText:[NSString stringWithFormat:@"%.2f feet", location.altitude]];
+    
+    
+    //update current city
+    if (self.currCity != nil) {
+        CLGeocoder *geocoder = [[CLGeocoder alloc]init];
+        [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+            if (error)
+                NSLog(@"reverse geolocate error, %@", [error localizedDescription]);
+            else {
+                CLPlacemark *placemark = [placemarks lastObject];
+                //use locality concat w/ zipcode
+                //get city and display posts here
+                
+                
+                
+                //NSLog(@"%@", [NSString stringWithFormat:@"%@", ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO)]);
+            }
+        }];
+    }
+    
+    
 }
 
 @end
