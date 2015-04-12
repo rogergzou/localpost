@@ -43,11 +43,11 @@
     //[PFAnalytics trackEvent:@"read" dimensions:dimensions];
     
     
-    
+    /*
     NSManagedObjectContext *context = [self managedObjectContext];
     NSError *error;
     City *cityinfo = [NSEntityDescription insertNewObjectForEntityForName:@"City" inManagedObjectContext:context];
-    cityinfo.name = @"Boston";
+    cityinfo.name = @"LondonW1J"; //just once
     Post *post1 = [NSEntityDescription insertNewObjectForEntityForName:@"Post" inManagedObjectContext:context];
     Post *post2 = [NSEntityDescription insertNewObjectForEntityForName:@"Post" inManagedObjectContext:context];
     post1.expireTime = [NSDate dateWithTimeIntervalSinceNow:5];
@@ -56,14 +56,14 @@
     post2.latitude = [NSDecimalNumber decimalNumberWithDecimal: [@42.4676145 decimalValue]];
     post1.longitude = [NSDecimalNumber decimalNumberWithDecimal: [@-72.505491 decimalValue]];
     post2.longitude = [NSDecimalNumber decimalNumberWithDecimal: [@-72.605491 decimalValue]];
-    post1.message = @"Amherst";
-    post2.message = @"ayy lmao above amherst";
+    post1.message = @"LonAmherst";
+    post2.message = @"Lonayy lmao above amherst";
     cityinfo.posts = [NSSet setWithObjects:post1, post2, nil];
     
     if (![context save:&error]) {
         NSLog(@"fail save, %@", [error localizedDescription]);
     }
-    /*
+    *//*
     //test if fetched?
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];

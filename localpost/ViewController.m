@@ -133,39 +133,6 @@
     
     //test, my code for core data
     //NSManagedObjectContext *context = self.managedObjectContext;
-    NSFetchRequest *fetchreq = [[NSFetchRequest alloc]init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"City" inManagedObjectContext:self.managedObjectContext];
-    [fetchreq setEntity:entity]; //prob
-    NSError *error;
-    NSArray *cities = [self.managedObjectContext executeFetchRequest:fetchreq error:&error];
-    if (error)
-        NSLog(@"%@", [error localizedDescription]);
-    NSLog(@"ctys: %@", cities);
-    
-    
-    ///HARDCODED
-    
-    City *boston = cities[0]; //trust for now
-    self.currCity = boston;
-    
-    ///HARDCODED
-    
-    
-    //[self.managedObjectContext deleteObject:cities[1]];
-    //[self.managedObjectContext deleteObject:cities[2]];
-    //int i = 0;
-    NSLog(@"psts: %@", boston.posts);
-    for (Post *poster in boston.posts) {
-        //NSLog(@"%@", poster);
-        poster.message = [poster.message stringByAppendingString:@"6"];
-        NSLog(@"%@, mess: %@", poster, poster.message);
-        //if (i > 1) {
-            //[self.managedObjectContext deleteObject:poster];
-        //}
-    }
-    if (![self.managedObjectContext save:&error]) {
-        NSLog(@"fail save, %@", [error localizedDescription]);
-    }
 
     //default start as hidden
     self.coverView.hidden = true;
@@ -219,7 +186,7 @@
     
     
     //update current city
-    if (self.currCity != nil) {
+    if (!self.currCity) {
         CLGeocoder *geocoder = [[CLGeocoder alloc]init];
         [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
             if (error)
@@ -228,7 +195,58 @@
                 CLPlacemark *placemark = [placemarks lastObject];
                 //use locality concat w/ zipcode
                 //get city and display posts here
+                NSString *cityID;
+                if (placemark.locality)
+                    if (placemark.postalCode)
+                        cityID = [placemark.locality stringByAppendingString:placemark.postalCode];
+                    else
+                        cityID = placemark.locality;
+                else if (placemark.postalCode)
+                    cityID = placemark.postalCode;
+                else
+                    return; //can't update city, can't post anything. sorry.
+                NSLog(@"cID %@", cityID);
+                NSFetchRequest *fetchreq = [[NSFetchRequest alloc]init];
+                NSEntityDescription *entity = [NSEntityDescription entityForName:@"City" inManagedObjectContext:self.managedObjectContext];
+                [fetchreq setEntity:entity]; //prob
                 
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name==%@",
+                                          cityID];
+                [fetchreq setPredicate:predicate];
+                
+                NSError *error;
+                NSArray *cities = [self.managedObjectContext executeFetchRequest:fetchreq error:&error];
+                if (error)
+                    NSLog(@"%@", [error localizedDescription]);
+                if ([cities count] > 3) {
+                    NSLog(@"warningsssss this really shouldn't happen!");
+                }
+                //query should be unique, so just get this. if not unique...uh oh.
+                self.currCity = [cities lastObject];
+                NSLog(@"currcity, %@", self.currCity);
+                
+                //[self.managedObjectContext deleteObject:cities[1]];
+                //[self.managedObjectContext deleteObject:cities[2]];
+                NSLog(@"psts: %@", self.currCity.posts);
+                
+                for (Post *poster in self.currCity.posts) {
+                    //add points to the map
+                    MKPointAnnotation *annot = [[MKPointAnnotation alloc]init];
+                    [annot setCoordinate:CLLocationCoordinate2DMake([poster.latitude doubleValue], [poster.longitude doubleValue])];
+                    [annot setTitle:poster.message];
+                    [mapview addAnnotation:annot];
+                    
+                    //NSLog(@"%@", poster);
+                    //poster.message = [poster.message stringByAppendingString:@"6"];
+                    //NSLog(@"%@, mess: %@", poster, poster.message);
+                    //if (i > 1) {
+                    //[self.managedObjectContext deleteObject:poster];
+                    //}
+                }
+                if (![self.managedObjectContext save:&error]) {
+                    NSLog(@"fail save, %@", [error localizedDescription]);
+                }
+
                 
                 
                 //NSLog(@"%@", [NSString stringWithFormat:@"%@", ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO)]);
