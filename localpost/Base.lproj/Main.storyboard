@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mdo-wd-8Q6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mdo-wd-8Q6">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -30,13 +30,13 @@
                                     <rect key="frame" x="0.0" y="0.0" width="568" height="492"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Write a message (max 20 characters)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wqh-18-JTZ">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Write a message (max 20 characters)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wqh-18-JTZ">
                                             <rect key="frame" x="54" y="45" width="284" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="F2F-DZ-hRM">
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="F2F-DZ-hRM">
                                             <rect key="frame" x="54" y="86" width="284" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="284" id="ADA-Hp-ume"/>
@@ -57,7 +57,7 @@
                                                 </mask>
                                             </variation>
                                         </textField>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Display message for 1 hours." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h54-jE-lgi">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Display message for 1 hours." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h54-jE-lgi">
                                             <rect key="frame" x="54" y="195" width="91" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="91" id="XKm-ba-xi5"/>
@@ -76,7 +76,7 @@
                                                 </mask>
                                             </variation>
                                         </label>
-                                        <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="rWp-46-1yi">
+                                        <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="rWp-46-1yi">
                                             <rect key="frame" x="52" y="239" width="288" height="31"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="284" id="78L-nT-xxZ"/>
@@ -144,6 +144,8 @@
                                             <exclude reference="xGH-Mt-iyj"/>
                                         </mask>
                                         <mask key="constraints">
+                                            <exclude reference="BkJ-jz-dka"/>
+                                            <exclude reference="LH9-MY-hvd"/>
                                             <exclude reference="03T-B7-gYJ"/>
                                             <exclude reference="NKf-Mv-96H"/>
                                             <exclude reference="h73-pF-cpk"/>
@@ -171,8 +173,6 @@
                                             <exclude reference="IFE-pH-tpv"/>
                                             <exclude reference="j7u-jp-s0N"/>
                                             <exclude reference="tBW-5y-XJI"/>
-                                            <exclude reference="BkJ-jz-dka"/>
-                                            <exclude reference="LH9-MY-hvd"/>
                                         </mask>
                                     </variation>
                                     <variation key="widthClass=compact">
@@ -180,6 +180,8 @@
                                             <include reference="xGH-Mt-iyj"/>
                                         </mask>
                                         <mask key="constraints">
+                                            <include reference="BkJ-jz-dka"/>
+                                            <include reference="LH9-MY-hvd"/>
                                             <exclude reference="03T-B7-gYJ"/>
                                             <include reference="NKf-Mv-96H"/>
                                             <exclude reference="h73-pF-cpk"/>
@@ -207,8 +209,6 @@
                                             <exclude reference="IFE-pH-tpv"/>
                                             <include reference="j7u-jp-s0N"/>
                                             <exclude reference="tBW-5y-XJI"/>
-                                            <include reference="BkJ-jz-dka"/>
-                                            <include reference="LH9-MY-hvd"/>
                                         </mask>
                                     </variation>
                                 </view>

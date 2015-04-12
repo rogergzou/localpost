@@ -32,37 +32,12 @@
 @implementation ViewController
 
 - (IBAction)unhideCover:(id)sender {
-    //self.coverView.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.35]; //.6
-/*
-    UIView *myView = self.coverView;
-    myView.backgroundColor = [UIColor clearColor];
-    UIToolbar* bgToolbar = [[UIToolbar alloc] initWithFrame:myView.frame];
-    bgToolbar.barStyle = UIBarStyleDefault;
-    [myView.superview insertSubview:bgToolbar belowSubview:myView];
-    self.blurToolbar = bgToolbar;
-
-    self.coverView.hidden = false;
-    //self.blurView.hidden = false;
-    self.expireDatePicker.date = [NSDate date];
-    
-  */
     if (self.coverView.hidden == true) {
-        //UIView *myView = self.coverView;
-        //myView.backgroundColor = [UIColor clearColor];
-        //UIToolbar* bgToolbar = [[UIToolbar alloc] initWithFrame:myView.frame];
-        //bgToolbar.barStyle = UIBarStyleDefault;
-        //[myView.superview insertSubview:bgToolbar belowSubview:myView];
-        //self.blurToolbar = bgToolbar;
-
-        
         self.coverView.hidden = false;
-        
         self.expireDatePicker.date = [NSDate date];
-        
     }
     else {
         self.coverView.hidden = true;
-        
     }
 }
 
@@ -70,8 +45,11 @@
     //add to core data thing
     Post *currpost = [NSEntityDescription insertNewObjectForEntityForName:@"Post" inManagedObjectContext:self.managedObjectContext];
     currpost.message = self.messageTextField.text;
-    NSLog(@"date exp %@", self.expireDatePicker.date);
-    currpost.expireTime = self.expireDatePicker.date;
+    
+    // ASSUMES IT'S 24 HOUR DEPENDENT ON THE SLIDER/DISPLAY. 1.0 corresponds to 24 hours
+    currpost.expireTime = [NSDate dateWithTimeIntervalSinceNow:self.slider.value * 360]; //60 * 60 = 360. slider is 1-24
+    
+    
     currpost.latitude = [NSDecimalNumber decimalNumberWithDecimal: [@(mapview.userLocation.location.coordinate.latitude) decimalValue]];
     currpost.longitude = [NSDecimalNumber decimalNumberWithDecimal:[@(mapview.userLocation.location.coordinate.longitude)decimalValue]];
     currpost.city = self.currCity;
@@ -79,40 +57,17 @@
     NSError *error;
     if (![self.managedObjectContext save:&error])
         NSLog(@"fail sav, %@", [error localizedDescription]);
-    //test if fetched?
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"City" inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    for (NSManagedObject *citya in fetchedObjects) {
-        NSLog(@"Name: %@", [citya valueForKey:@"name"]);
-        NSSet *posts = [citya valueForKey:@"posts"];
-        //        NSLog(@"Zip: %@", [details valueForKey:@"zip"]);
-        for (NSManagedObject *posta in posts) {
-            NSLog(@"Message: %@", [posta valueForKey:@"message"]);
-        }
-    }
+    //put down a pin
+    MKPointAnnotation *annot = [[MKPointAnnotation alloc]init];
+    [annot setCoordinate:CLLocationCoordinate2DMake(mapview.userLocation.location.coordinate.latitude, mapview.userLocation.location.coordinate.longitude)];
+    [annot setTitle:self.messageTextField.text];
+    [mapview addAnnotation:annot];
+
+    //hide
     self.coverView.hidden = true;
     [self.blurToolbar removeFromSuperview];
     self.messageTextField.text = @"";
 }
-
-/* //fuck it
-- (NSFetchedResultsController *)fetchedResultsController {
-    if (_fetchedResultsController != nil)
-        return _fetchedResultsController;
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Post" inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc]initWithKey:@"expireDate" ascending:NO]
-    ;
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-    return nil; //
-}
- */
 
 - (IBAction)onSlide:(id)sender {
     self.sliderLabel.text = [NSString stringWithFormat:@"Display message for %0.1f hours", self.slider.value];
@@ -185,7 +140,7 @@
     [[self labelAltitude] setText:[NSString stringWithFormat:@"%.2f feet", location.altitude]];
     
     
-    //update current city
+    //update current city and get local posts
     if (!self.currCity) {
         CLGeocoder *geocoder = [[CLGeocoder alloc]init];
         [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -205,7 +160,8 @@
                     cityID = placemark.postalCode;
                 else
                     return; //can't update city, can't post anything. sorry.
-                NSLog(@"cID %@", cityID);
+                
+                //get stuff
                 NSFetchRequest *fetchreq = [[NSFetchRequest alloc]init];
                 NSEntityDescription *entity = [NSEntityDescription entityForName:@"City" inManagedObjectContext:self.managedObjectContext];
                 [fetchreq setEntity:entity]; //prob
@@ -218,43 +174,35 @@
                 NSArray *cities = [self.managedObjectContext executeFetchRequest:fetchreq error:&error];
                 if (error)
                     NSLog(@"%@", [error localizedDescription]);
-                if ([cities count] > 3) {
+                if ([cities count] == 0) {
+                    //no posts for that city
+                    //create a City and insert into context for later, then set as currentCity.
+                    City *c = [NSEntityDescription insertNewObjectForEntityForName:@"City" inManagedObjectContext:self.managedObjectContext];
+                    c.name = cityID;
+                    c.posts = [[NSSet alloc]init]; //empty set
+                    if(![self.managedObjectContext save:&error])
+                        NSLog(@"err inserting city %@, %@", cityID, [error localizedDescription]);
+                    else
+                        self.currCity = c;
+                    return;
+                } else if ([cities count] > 3) {
                     NSLog(@"warningsssss this really shouldn't happen!");
                 }
                 //query should be unique, so just get this. if not unique...uh oh.
                 self.currCity = [cities lastObject];
-                NSLog(@"currcity, %@", self.currCity);
-                
-                //[self.managedObjectContext deleteObject:cities[1]];
-                //[self.managedObjectContext deleteObject:cities[2]];
-                NSLog(@"psts: %@", self.currCity.posts);
-                
                 for (Post *poster in self.currCity.posts) {
                     //add points to the map
                     MKPointAnnotation *annot = [[MKPointAnnotation alloc]init];
                     [annot setCoordinate:CLLocationCoordinate2DMake([poster.latitude doubleValue], [poster.longitude doubleValue])];
                     [annot setTitle:poster.message];
                     [mapview addAnnotation:annot];
-                    
-                    //NSLog(@"%@", poster);
-                    //poster.message = [poster.message stringByAppendingString:@"6"];
-                    //NSLog(@"%@, mess: %@", poster, poster.message);
-                    //if (i > 1) {
-                    //[self.managedObjectContext deleteObject:poster];
-                    //}
                 }
                 if (![self.managedObjectContext save:&error]) {
                     NSLog(@"fail save, %@", [error localizedDescription]);
                 }
-
-                
-                
-                //NSLog(@"%@", [NSString stringWithFormat:@"%@", ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO)]);
             }
         }];
     }
-    
-    
 }
 
 @end
