@@ -20,6 +20,9 @@
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="TzI-EW-6pq">
                                 <rect key="frame" x="16" y="20" width="506" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="mdo-wd-8Q6" id="Kc3-ao-OLa"/>
+                                </connections>
                             </searchBar>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mY7-an-jxo">
                                 <rect key="frame" x="522" y="20" width="62" height="44"/>
@@ -262,6 +265,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="coverView" destination="BDk-lH-7jG" id="TBg-pa-rca"/>
+                        <outlet property="filterSearch" destination="TzI-EW-6pq" id="uE9-gE-k84"/>
                         <outlet property="mapview" destination="dbr-2l-88P" id="Dk2-HR-Z8w"/>
                         <outlet property="messageTextField" destination="F2F-DZ-hRM" id="Bk8-Fq-pM8"/>
                         <outlet property="slider" destination="rWp-46-1yi" id="hyu-gT-hj6"/>

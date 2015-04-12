@@ -15,9 +15,11 @@
 #import "City.h"
 #import "Post.h"
 #import "AppDelegate.h"
+#import "MyCustomAnnotation.h"
+
 @import AddressBookUI;
 
-@interface ViewController () <CLLocationManagerDelegate>
+@interface ViewController () <CLLocationManagerDelegate,MKMapViewDelegate>
 
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
@@ -27,10 +29,11 @@
 @property (nonatomic, strong) City *currCity;
 @property (nonatomic, strong) UIToolbar *blurToolbar;
 
+
 @end
 
 @implementation ViewController
-
+int startCount = 1;
 - (IBAction)unhideCover:(id)sender {
     if (self.coverView.hidden == true) {
         self.coverView.hidden = false;
@@ -122,7 +125,10 @@
     if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
         [self.locationManager requestWhenInUseAuthorization];
     }
-    mapview.showsUserLocation = YES;
+    
+    
+    //MKMapViewDelegate * mapDelegate = [[MKMapViewDelegate alloc]init];
+    mapview.delegate = self;
     
     [[self locationManager] startUpdatingLocation];
     
@@ -150,13 +156,18 @@
 }
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     CLLocation *location = locations.lastObject;
-    MKCoordinateRegion region=MKCoordinateRegionMakeWithDistance(location.coordinate, 200, 200);
-    [self.mapview setRegion:region animated: YES];
+    
+    if (startCount != 0) {
+        self.location = location;
+        MKCoordinateRegion region=MKCoordinateRegionMakeWithDistance(location.coordinate, 200, 200);
+        [self.mapview setRegion:region animated: YES];
     /*
     [[self labelLatitude] setText:[NSString stringWithFormat:@"%.6f", location.coordinate.latitude]];
     [[self labelLongitude] setText:[NSString stringWithFormat:@"%.6f", location.coordinate.longitude]];
     [[self labelAltitude] setText:[NSString stringWithFormat:@"%.2f feet", location.altitude]];
     */
+    }
+    startCount = 0;
     
     //update current city and get local posts
     if (!self.currCity) {
@@ -212,6 +223,9 @@
                     //add points to the map
                     MKPointAnnotation *annot = [[MKPointAnnotation alloc]init];
                     [annot setCoordinate:CLLocationCoordinate2DMake([poster.latitude doubleValue], [poster.longitude doubleValue])];
+                    // doesn't work....
+                    MKPinAnnotationView *pinView = [[MKPinAnnotationView alloc]initWithAnnotation:annot reuseIdentifier:@"stuff"];
+                    pinView.pinColor = MKPinAnnotationColorPurple;
                     [annot setTitle:poster.message];
                     [mapview addAnnotation:annot];
                 }
@@ -222,5 +236,82 @@
         }];
     }
 }
+- (void)searchBar: (UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+    NSString * text = searchText;
+    NSLog(@"%@", text);
+    for (Post *poster in self.currCity.posts) {
+        MKPointAnnotation *annot = [[MKPointAnnotation alloc]init];
+        [annot setCoordinate:CLLocationCoordinate2DMake([poster.latitude doubleValue], [poster.longitude doubleValue])];
+        // doesn't work....
+        MKPinAnnotationView *pinView = [[MKPinAnnotationView alloc]initWithAnnotation:annot reuseIdentifier:@"stuff"];
+        pinView.pinColor = MKPinAnnotationColorPurple;
+        [annot setTitle:poster.message];
+        [mapview addAnnotation:annot];
+        
+        if ([poster.message rangeOfString:text].location == NSNotFound && ![text isEqualToString:@""]) {
+            for (MKPointAnnotation * annot in mapview.annotations) {
+                if (annot.title == poster.message) {
+                    [mapview removeAnnotation: annot];
+                }
+            }
+        }
 
+    }
+    
+}
+
+
+
+
+/*
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIViewController *)control {
+    NSLog(@"reached");
+    [self performSegueWithIdentifier:@"DetailsIphone" sender:view];
+    
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
+{
+    if ([annotation isKindOfClass:[MKUserLocation class]])
+    {
+        return nil;
+    }
+    else if ([annotation isKindOfClass:[MyCustomAnnotation class]])
+    {
+        static NSString * const identifier = @"MyCustomAnnotation";
+        
+        MKAnnotationView* annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+        
+        if (annotationView)
+        {
+            annotationView.annotation = annotation;
+        }
+        else
+        {
+            annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation
+                                                          reuseIdentifier:identifier];
+        }
+        
+        // set your annotationView properties
+        
+        annotationView.image = [UIImage imageNamed:@"circle.png"];
+        annotationView.canShowCallout = YES;
+        
+        // if you add QuartzCore to your project, you can set shadows for your image, too
+        //
+        // [annotationView.layer setShadowColor:[UIColor blackColor].CGColor];
+        // [annotationView.layer setShadowOpacity:1.0f];
+        // [annotationView.layer setShadowRadius:5.0f];
+        // [annotationView.layer setShadowOffset:CGSizeMake(0, 0)];
+        // [annotationView setBackgroundColor:[UIColor whiteColor]];
+        
+        return annotationView;
+    }
+    
+    return nil;
+    
+    
+    
+}
+*/
 @end

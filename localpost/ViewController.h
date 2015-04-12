@@ -14,12 +14,17 @@
 @interface ViewController : UIViewController {
     
     MKMapView *mapview;
-    
+
 }
 @property (weak, nonatomic) IBOutlet UIVisualEffectView *coverView;
 
-
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations;
+
+//- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation;
+
+//- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIViewController *)control;
+
+@property (weak, nonatomic) IBOutlet UISearchBar *filterSearch;
 
 @property (nonatomic, retain) IBOutlet MKMapView *mapview;
 

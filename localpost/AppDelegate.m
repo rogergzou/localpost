@@ -43,7 +43,7 @@
     //[PFAnalytics trackEvent:@"read" dimensions:dimensions];
     
     
-    /*
+    
     NSManagedObjectContext *context = [self managedObjectContext];
     NSError *error;
     City *cityinfo = [NSEntityDescription insertNewObjectForEntityForName:@"City" inManagedObjectContext:context];
@@ -63,7 +63,7 @@
     if (![context save:&error]) {
         NSLog(@"fail save, %@", [error localizedDescription]);
     }
-    *//*
+    /*
     //test if fetched?
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];

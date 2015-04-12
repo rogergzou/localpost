@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AEBFB2181ADA52310099C7B9 /* MKMapViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AEBFB2171ADA52310099C7B9 /* MKMapViewDelegate.m */; };
+		AEBFB21B1ADA789A0099C7B9 /* MyCustomAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = AEBFB21A1ADA789A0099C7B9 /* MyCustomAnnotation.m */; };
+		AEBFB21D1ADA7B020099C7B9 /* circle.png in Resources */ = {isa = PBXBuildFile; fileRef = AEBFB21C1ADA7B020099C7B9 /* circle.png */; };
 		AEF8611A1AD9B24E0077ECBD /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEF861191AD9B24E0077ECBD /* MapKit.framework */; };
 		AEF8611C1AD9C00B0077ECBD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEF8611B1AD9C00B0077ECBD /* CoreLocation.framework */; };
 		DB2A3C551AD9A663002505AC /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = DB2A3C541AD9A663002505AC /* Post.m */; };
@@ -60,6 +63,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AEBFB2161ADA52310099C7B9 /* MKMapViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKMapViewDelegate.h; sourceTree = "<group>"; };
+		AEBFB2171ADA52310099C7B9 /* MKMapViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKMapViewDelegate.m; sourceTree = "<group>"; };
+		AEBFB2191ADA789A0099C7B9 /* MyCustomAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCustomAnnotation.h; sourceTree = "<group>"; };
+		AEBFB21A1ADA789A0099C7B9 /* MyCustomAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCustomAnnotation.m; sourceTree = "<group>"; };
+		AEBFB21C1ADA7B020099C7B9 /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle.png; sourceTree = "<group>"; };
 		AEF861191AD9B24E0077ECBD /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		AEF8611B1AD9C00B0077ECBD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		DB2A3C531AD9A663002505AC /* Post.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
@@ -176,6 +184,11 @@
 				DB4F5D921AD99933006FB982 /* AppDelegate.m */,
 				DB4F5D971AD99933006FB982 /* ViewController.h */,
 				DB4F5D981AD99933006FB982 /* ViewController.m */,
+				AEBFB21C1ADA7B020099C7B9 /* circle.png */,
+				AEBFB2191ADA789A0099C7B9 /* MyCustomAnnotation.h */,
+				AEBFB21A1ADA789A0099C7B9 /* MyCustomAnnotation.m */,
+				AEBFB2161ADA52310099C7B9 /* MKMapViewDelegate.h */,
+				AEBFB2171ADA52310099C7B9 /* MKMapViewDelegate.m */,
 				DB4F5D9A1AD99933006FB982 /* Main.storyboard */,
 				DB4F5D9D1AD99933006FB982 /* Images.xcassets */,
 				DB4F5D9F1AD99933006FB982 /* LaunchScreen.xib */,
@@ -304,6 +317,7 @@
 				DB4F5D9C1AD99933006FB982 /* Main.storyboard in Resources */,
 				DB4F5DA11AD99933006FB982 /* LaunchScreen.xib in Resources */,
 				DB4F5D9E1AD99933006FB982 /* Images.xcassets in Resources */,
+				AEBFB21D1ADA7B020099C7B9 /* circle.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,6 +337,8 @@
 			files = (
 				DB4F5D961AD99933006FB982 /* localpost.xcdatamodeld in Sources */,
 				DB2A3C551AD9A663002505AC /* Post.m in Sources */,
+				AEBFB2181ADA52310099C7B9 /* MKMapViewDelegate.m in Sources */,
+				AEBFB21B1ADA789A0099C7B9 /* MyCustomAnnotation.m in Sources */,
 				DB2A3C601AD9A74C002505AC /* City.m in Sources */,
 				DB4F5D931AD99933006FB982 /* AppDelegate.m in Sources */,
 				DB4F5D991AD99933006FB982 /* ViewController.m in Sources */,
