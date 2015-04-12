@@ -3,7 +3,7 @@
 //  localpost
 //
 //  Created by Roger on 4/11/15.
-//  Copyright (c) 2015 Roger Zou. All rights reserved.
+//  Copyright (c) 2015 Roger Zou and Charles Zhang. All rights reserved.
 //
 
 #import "AppDelegate.h"
@@ -22,9 +22,9 @@
     
     
     
-    //NSManagedObjectContext *context = [self managedObjectContext];
-    //NSError *error;
-    /*City *cityinfo = [NSEntityDescription insertNewObjectForEntityForName:@"City" inManagedObjectContext:context];
+    NSManagedObjectContext *context = [self managedObjectContext];
+    NSError *error;
+    City *cityinfo = [NSEntityDescription insertNewObjectForEntityForName:@"City" inManagedObjectContext:context];
     cityinfo.name = @"Boston";
     Post *post1 = [NSEntityDescription insertNewObjectForEntityForName:@"Post" inManagedObjectContext:context];
     Post *post2 = [NSEntityDescription insertNewObjectForEntityForName:@"Post" inManagedObjectContext:context];
@@ -41,7 +41,7 @@
     if (![context save:&error]) {
         NSLog(@"fail save, %@", [error localizedDescription]);
     }
-    
+    /*
     //test if fetched?
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		AEF8611A1AD9B24E0077ECBD /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEF861191AD9B24E0077ECBD /* MapKit.framework */; };
 		AEF8611C1AD9C00B0077ECBD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEF8611B1AD9C00B0077ECBD /* CoreLocation.framework */; };
-		AEF8611E1AD9D86E0077ECBD /* post.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AEF8611D1AD9D86E0077ECBD /* post.jpg */; };
 		DB2A3C551AD9A663002505AC /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = DB2A3C541AD9A663002505AC /* Post.m */; };
 		DB2A3C571AD9A6C1002505AC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB2A3C561AD9A6C1002505AC /* CoreData.framework */; };
 		DB2A3C591AD9A700002505AC /* CoreData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DB2A3C561AD9A6C1002505AC /* CoreData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -51,7 +50,6 @@
 /* Begin PBXFileReference section */
 		AEF861191AD9B24E0077ECBD /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		AEF8611B1AD9C00B0077ECBD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		AEF8611D1AD9D86E0077ECBD /* post.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = post.jpg; sourceTree = SOURCE_ROOT; };
 		DB2A3C531AD9A663002505AC /* Post.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
 		DB2A3C541AD9A663002505AC /* Post.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Post.m; sourceTree = "<group>"; };
 		DB2A3C561AD9A6C1002505AC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -123,7 +121,6 @@
 				DB4F5D971AD99933006FB982 /* ViewController.h */,
 				DB4F5D981AD99933006FB982 /* ViewController.m */,
 				DB4F5D9A1AD99933006FB982 /* Main.storyboard */,
-				AEF8611D1AD9D86E0077ECBD /* post.jpg */,
 				DB4F5D9D1AD99933006FB982 /* Images.xcassets */,
 				DB4F5D9F1AD99933006FB982 /* LaunchScreen.xib */,
 				DB4F5D941AD99933006FB982 /* localpost.xcdatamodeld */,
@@ -249,7 +246,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB4F5D9C1AD99933006FB982 /* Main.storyboard in Resources */,
-				AEF8611E1AD9D86E0077ECBD /* post.jpg in Resources */,
 				DB4F5DA11AD99933006FB982 /* LaunchScreen.xib in Resources */,
 				DB4F5D9E1AD99933006FB982 /* Images.xcassets in Resources */,
 			);
